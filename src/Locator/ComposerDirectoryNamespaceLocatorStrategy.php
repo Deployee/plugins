@@ -29,15 +29,15 @@ class ComposerDirectoryNamespaceLocatorStrategy implements LocatorStrategyInterf
      */
     public function locate(): array
     {
-        $list = [];
+        $list = [[]];
 
         foreach($this->classLoader->getPrefixesPsr4() as $namespace => $rootDirs){
             foreach($rootDirs as $rootDir){
-                $list = $list + $this->locateInDirectory($namespace, $rootDir);
+                $list[] = $this->locateInDirectory($namespace, $rootDir);
             }
         }
 
-        return $list;
+        return array_merge(...$list);
     }
 
     /**
