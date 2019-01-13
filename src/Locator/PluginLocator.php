@@ -28,12 +28,13 @@ class PluginLocator
      */
     public function locatePlugins(): array
     {
-        $list = [];
+        $list = [[]];
 
         foreach($this->strategies as $strategy){
-            $list = $list + $strategy->locate();
+            $list[] = $strategy->locate();
+
         }
 
-        return $list;
+        return array_merge(...$list);
     }
 }
