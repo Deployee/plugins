@@ -35,7 +35,7 @@ class PluginLoader
     {
         $list = [];
         foreach($this->locator->locatePlugins() as $pluginClass){
-            $list[$pluginClass] = $pluginClass();
+            $list[$pluginClass] = new $pluginClass();
         }
 
         $container = $this->container;
