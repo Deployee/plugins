@@ -31,7 +31,7 @@ class PluginLocator
         $list = [];
 
         foreach($this->strategies as $strategy){
-            $list = array_merge($list, $strategy->locate());
+            $list = $list + $strategy->locate();
         }
 
         return $list;
