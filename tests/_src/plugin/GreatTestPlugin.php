@@ -9,7 +9,7 @@ use Deployee\Components\Plugins\PluginInterface;
 
 class GreatTestPlugin implements PluginInterface
 {
-    public function onLoad(ContainerInterface $container)
+    public function boot(ContainerInterface $container)
     {
 
     }

@@ -9,7 +9,7 @@ use Deployee\Components\Plugins\PluginInterface;
 
 class SuperTestPlugin implements PluginInterface
 {
-    public function onLoad(ContainerInterface $container)
+    public function boot(ContainerInterface $container)
     {
 
     }

@@ -40,7 +40,7 @@ class PluginLoader
 
         $container = $this->container;
         array_walk($list, function(PluginInterface $plugin) use ($container){
-            $plugin->onLoad($container);
+            $plugin->boot($container);
         });
 
         return $list;
