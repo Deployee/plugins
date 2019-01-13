@@ -14,4 +14,8 @@ class GreatTestPlugin implements PluginInterface
 
     }
 
+    public function run(ContainerInterface $container)
+    {
+
+    }
 }

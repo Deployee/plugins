@@ -9,4 +9,6 @@ use Deployee\Components\Container\ContainerInterface;
 interface PluginInterface
 {
     public function onLoad(ContainerInterface $container);
+
+    public function run(ContainerInterface $container);
 }

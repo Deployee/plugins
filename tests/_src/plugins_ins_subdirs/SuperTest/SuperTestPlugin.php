@@ -13,4 +13,9 @@ class SuperTestPlugin implements PluginInterface
     {
 
     }
+
+    public function run(ContainerInterface $container)
+    {
+
+    }
 }

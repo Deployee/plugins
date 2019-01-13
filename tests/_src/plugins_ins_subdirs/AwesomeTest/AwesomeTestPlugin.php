@@ -14,4 +14,8 @@ class AwesomeTestPlugin implements PluginInterface
 
     }
 
+    public function run(ContainerInterface $container)
+    {
+
+    }
 }
