@@ -5,10 +5,11 @@ namespace Deployee\Components\Plugins\Locator;
 
 
 use Composer\Autoload\ClassLoader;
-use Deployee\Components\Plugins\PluginInterface;
 
 class ComposerDirectoryNamespaceLocatorStrategy implements LocatorStrategyInterface
 {
+    use IsPluginTrait;
+
     /**
      * @var ClassLoader
      */
@@ -32,7 +33,7 @@ class ComposerDirectoryNamespaceLocatorStrategy implements LocatorStrategyInterf
 
         foreach($this->classLoader->getPrefixesPsr4() as $namespace => $rootDirs){
             foreach($rootDirs as $rootDir){
-                $list = array_merge($list, $this->locateInDirectory($namespace, $rootDir));
+                $list = $list + $this->locateInDirectory($namespace, $rootDir);
             }
         }
 
@@ -52,23 +53,12 @@ class ComposerDirectoryNamespaceLocatorStrategy implements LocatorStrategyInterf
                 continue;
             }
 
-            $expectedNamespace = $rootNamespace . $iterator->getBasename() . '\\';
-            if($this->isPluginNamespace($expectedNamespace)){
-                $list[] = $expectedNamespace . basename($expectedNamespace) . 'Plugin';
+            $expectedClass = $rootNamespace . sprintf('%1$s\\%1$sPlugin', $iterator->getBasename());
+            if($this->isPlugin($expectedClass)){
+                $list[] = $expectedClass;
             }
         }
 
         return $list;
-    }
-
-    /**
-     * @param string $namespace
-     * @return bool
-     */
-    private function isPluginNamespace(string $namespace): bool
-    {
-        $expectedClass = $namespace . basename($namespace) . 'Plugin';
-        return class_exists($expectedClass)
-            && in_array(PluginInterface::class, class_implements($expectedClass), false);
     }
 }

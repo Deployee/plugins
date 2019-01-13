@@ -5,10 +5,11 @@ namespace Deployee\Components\Plugins\Locator;
 
 
 use Composer\Autoload\ClassLoader;
-use Deployee\Components\Plugins\PluginInterface;
 
 class ComposerNamespaceLocatorStrategy implements LocatorStrategyInterface
 {
+    use IsPluginTrait;
+
     /**
      * @var ClassLoader
      */
@@ -27,22 +28,17 @@ class ComposerNamespaceLocatorStrategy implements LocatorStrategyInterface
     {
         $list = [];
         foreach($this->classLoader->getPrefixesPsr4() as $namespace => $rootDirs){
-            if($this->isPluginNamespace($namespace)){
-                $list[] = $namespace . basename($namespace) . 'Plugin';
+
+            $expectedClass = $namespace . sprintf(
+                '%1$s\\%1$sPlugin',
+                basename(substr($namespace, 0 ,-1))
+            );
+
+            if($this->isPlugin($expectedClass)){
+                $list[] = $expectedClass;
             }
         }
 
         return $list;
-    }
-
-    /**
-     * @param string $namespace
-     * @return bool
-     */
-    private function isPluginNamespace(string $namespace): bool
-    {
-        $expectedClass = $namespace . basename($namespace) . 'Plugin';
-        return class_exists($expectedClass)
-            && in_array(PluginInterface::class, class_implements($expectedClass), false);
     }
 }
