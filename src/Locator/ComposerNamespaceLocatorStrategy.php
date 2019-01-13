@@ -29,9 +29,12 @@ class ComposerNamespaceLocatorStrategy implements LocatorStrategyInterface
         $list = [];
         foreach($this->classLoader->getPrefixesPsr4() as $namespace => $rootDirs){
 
+            $namespaceParts = explode('\\', basename(substr($namespace, 0 ,-1)));
+            $pluginName = $namespaceParts[count($namespaceParts)-1];
+
             $expectedClass = $namespace . sprintf(
                 '%1$sPlugin',
-                basename(substr($namespace, 0 ,-1))
+                    $pluginName
             );
 
             if($this->isPlugin($expectedClass)){
