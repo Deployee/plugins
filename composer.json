@@ -22,7 +22,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Deployee\\Components\\Plugins\\": "tests/"
+            "Deployee\\Components\\Plugins\\": "tests/",
+            "UnitTestPlugins\\": "tests/_testsrc/"
         }
     }
 }

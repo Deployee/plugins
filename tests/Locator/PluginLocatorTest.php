@@ -5,8 +5,9 @@ namespace Deployee\Components\Plugins;
 
 
 use Deployee\Components\Plugins\Locator\PluginLocator;
-use Deployee\Components\Plugins\TestPlugin\TestPluginPlugin;
 use PHPUnit\Framework\TestCase;
+use UnitTestPlugins\AwesomeTest\AwesomeTestPlugin;
+use UnitTestPlugins\SuperTest\SuperTestPlugin;
 
 class PluginLocatorTest extends TestCase
 {
@@ -15,7 +16,7 @@ class PluginLocatorTest extends TestCase
         $locator = new PluginLocator();
         $plugins = $locator->locatePlugins();
 
-        $this->assertTrue(is_array($plugins));
-        $this->assertContains(TestPluginPlugin::class, $plugins, var_export($plugins));
+        $this->assertContains(SuperTestPlugin::class, $plugins);
+        $this->assertContains(AwesomeTestPlugin::class, $plugins);
     }
 }

@@ -55,6 +55,7 @@ class ComposerDirectoryNamespaceLocatorStrategy implements LocatorStrategyInterf
 
             $expectedClass = $rootNamespace . sprintf('%1$s\\%1$sPlugin', $iterator->getBasename());
             if($this->isPlugin($expectedClass)){
+
                 $list[] = $expectedClass;
             }
         }
