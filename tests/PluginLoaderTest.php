@@ -5,6 +5,7 @@ namespace Deployee\Components\Plugins;
 
 
 use Deployee\Components\Container\Container;
+use Deployee\Components\Dependency\ContainerResolver;
 use PHPUnit\Framework\TestCase;
 use UnitTestPlugins\AwesomeTest\AwesomeTestPlugin;
 use UnitTestPlugins\GreatTest\GreatTestPlugin;
@@ -14,7 +15,8 @@ class PluginLoaderTest extends TestCase
 {
     public function testLoadPlugins()
     {
-        $loader = new PluginLoader(new Container());
+        $resolver = new ContainerResolver(new Container());
+        $loader = new PluginLoader($resolver);
         $plugins = $loader->loadPlugins();
 
         $this->assertContains(GreatTestPlugin::class, array_keys($plugins));

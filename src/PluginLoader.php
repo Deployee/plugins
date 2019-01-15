@@ -3,16 +3,15 @@
 
 namespace Deployee\Components\Plugins;
 
-
-use Deployee\Components\Container\ContainerInterface;
+use Deployee\Components\Dependency\ContainerResolver;
 use Deployee\Components\Plugins\Locator\PluginLocator;
 
 class PluginLoader
 {
     /**
-     * @var ContainerInterface
+     * @var ContainerResolver
      */
-    private $container;
+    private $resolver;
 
     /**
      * @var PluginLocator
@@ -20,27 +19,27 @@ class PluginLoader
     private $locator;
 
     /**
-     * @param ContainerInterface $container
+     * @param ContainerResolver $resolver
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerResolver $resolver)
     {
-        $this->container = $container;
+        $this->resolver = $resolver;
         $this->locator = new PluginLocator();
     }
 
     /**
      * @return array
+     * @throws \ReflectionException
      */
     public function loadPlugins(): array
     {
         $list = [];
         foreach($this->locator->locatePlugins() as $pluginClass){
-            $list[$pluginClass] = new $pluginClass();
+            $list[$pluginClass] = $this->resolver->createInstance($pluginClass);
         }
 
-        $container = $this->container;
-        array_walk($list, function(PluginInterface $plugin) use ($container){
-            $plugin->boot($container);
+        array_walk($list, function(PluginInterface $plugin){
+            $plugin->boot();
         });
 
         return $list;
