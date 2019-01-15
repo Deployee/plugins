@@ -3,9 +3,11 @@
 
 namespace Deployee\Components\Plugins;
 
+use Deployee\Components\Container\ContainerInterface;
+
 interface PluginInterface
 {
-    public function boot();
+    public function boot(ContainerInterface $container);
 
-    public function run();
+    public function configure();
 }
