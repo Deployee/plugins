@@ -13,7 +13,7 @@ trait EmptyPluginInterfaceImplementationTrait
 
     }
 
-    public function configure()
+    public function configure(ContainerInterface $container)
     {
 
     }

@@ -9,5 +9,5 @@ interface PluginInterface
 {
     public function boot(ContainerInterface $container);
 
-    public function configure();
+    public function configure(ContainerInterface $container);
 }

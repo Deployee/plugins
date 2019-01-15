@@ -37,12 +37,13 @@ class PluginLoader
             $list[$pluginClass] = new $pluginClass;
         }
 
-        array_walk($list, function(PluginInterface $plugin){
-            $plugin->boot($this->container);
+        $container = $this->container;
+        array_walk($list, function(PluginInterface $plugin) use($container){
+            $plugin->boot($container);
         });
 
-        array_walk($list, function(PluginInterface $plugin){
-            $plugin->configure();
+        array_walk($list, function(PluginInterface $plugin) use($container){
+            $plugin->configure($container);
         });
 
         return $list;
