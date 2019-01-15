@@ -3,19 +3,10 @@
 
 namespace UnitTestPlugins\GreatTest;
 
-
-use Deployee\Components\Container\ContainerInterface;
 use Deployee\Components\Plugins\PluginInterface;
+use UnitTestPlugins\EmptyPluginInterfaceImplementationTrait;
 
 class GreatTestPlugin implements PluginInterface
 {
-    public function boot()
-    {
-
-    }
-
-    public function run()
-    {
-
-    }
+    use EmptyPluginInterfaceImplementationTrait;
 }

@@ -3,19 +3,10 @@
 
 namespace UnitTestPlugins\SuperTest;
 
-
-use Deployee\Components\Container\ContainerInterface;
 use Deployee\Components\Plugins\PluginInterface;
+use UnitTestPlugins\EmptyPluginInterfaceImplementationTrait;
 
 class SuperTestPlugin implements PluginInterface
 {
-    public function boot()
-    {
-
-    }
-
-    public function run()
-    {
-
-    }
+    use EmptyPluginInterfaceImplementationTrait;
 }

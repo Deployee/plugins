@@ -15,8 +15,7 @@ class PluginLoaderTest extends TestCase
 {
     public function testLoadPlugins()
     {
-        $resolver = new ContainerResolver(new Container());
-        $loader = new PluginLoader($resolver);
+        $loader = new PluginLoader(new Container());
         $plugins = $loader->loadPlugins();
 
         $this->assertContains(GreatTestPlugin::class, array_keys($plugins));
