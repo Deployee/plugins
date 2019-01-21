@@ -52,11 +52,13 @@ class PluginLoader
     {
         $reflection = new \ReflectionClass($class);
         $pluginDir = dirname($reflection->getFileName());
+        $pluginBaseName = substr($class, strrpos($class, '\\')+1);
+
         $expectedServiceFiles = [
             $pluginDir . '/config/services.yaml',
             sprintf(
                 $pluginDir . '/../config/services.%s.yaml',
-                strtolower(substr($class, 0, strrpos($class, 'Plugin')))
+                strtolower(substr($pluginBaseName, 0, strrpos($pluginBaseName, 'Plugin')))
             ),
             $pluginDir . '/../config/services.yaml'
         ];
