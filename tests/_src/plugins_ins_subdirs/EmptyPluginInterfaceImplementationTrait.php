@@ -3,17 +3,11 @@
 
 namespace UnitTestPlugins;
 
-
-use Deployee\Components\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 trait EmptyPluginInterfaceImplementationTrait
 {
-    public function boot(ContainerInterface $container)
-    {
-
-    }
-
-    public function configure(ContainerInterface $container)
+    public function boot(ContainerBuilder $container)
     {
 
     }

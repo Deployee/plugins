@@ -1,0 +1,7 @@
+parameters:
+  foo: bar
+  bar: foo
+
+services:
+  UnitTestPlugins\GreatTest\TestService:
+    class: UnitTestPlugins\GreatTest\TestService

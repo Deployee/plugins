@@ -3,11 +3,9 @@
 
 namespace Deployee\Components\Plugins;
 
-use Deployee\Components\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 interface PluginInterface
 {
-    public function boot(ContainerInterface $container);
-
-    public function configure(ContainerInterface $container);
+    public function boot(ContainerBuilder $container);
 }

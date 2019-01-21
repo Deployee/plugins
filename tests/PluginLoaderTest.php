@@ -3,19 +3,22 @@
 
 namespace Deployee\Components\Plugins;
 
-
-use Deployee\Components\Container\Container;
-use Deployee\Components\Dependency\ContainerResolver;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use UnitTestPlugins\AwesomeTest\AwesomeTestPlugin;
 use UnitTestPlugins\GreatTest\GreatTestPlugin;
+use UnitTestPlugins\GreatTest\TestService;
 use UnitTestPlugins\SuperTest\SuperTestPlugin;
 
 class PluginLoaderTest extends TestCase
 {
+    /**
+     * @throws \Exception
+     */
     public function testLoadPlugins()
     {
-        $loader = new PluginLoader(new Container());
+        $container = new ContainerBuilder();
+        $loader = new PluginLoader($container);
         $plugins = $loader->loadPlugins();
 
         $this->assertContains(GreatTestPlugin::class, array_keys($plugins));
@@ -24,5 +27,16 @@ class PluginLoaderTest extends TestCase
         $this->assertInstanceOf(AwesomeTestPlugin::class, $plugins[AwesomeTestPlugin::class]);
         $this->assertContains(SuperTestPlugin::class, array_keys($plugins));
         $this->assertInstanceOf(SuperTestPlugin::class, $plugins[SuperTestPlugin::class]);
+
+        // test instanciation of services from services.yaml
+        $this->assertInstanceOf(TestService::class, $container->get(TestService::class));
+
+        // test overwriting parameters in services.yaml
+        $this->assertSame('bar', $container->getParameter('bar'));
+
+        // test autowiring of ::configure method
+        /* @var SuperTestPlugin $superTestPlugin */
+        $superTestPlugin = $plugins[SuperTestPlugin::class];
+        $superTestPlugin->getTestService();
     }
 }
