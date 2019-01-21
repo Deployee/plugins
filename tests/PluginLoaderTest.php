@@ -34,10 +34,5 @@ class PluginLoaderTest extends TestCase
 
         // test overwriting parameters in services.yaml
         $this->assertSame('bar', $container->getParameter('bar'));
-
-        // test autowiring of ::configure method
-        /* @var SuperTestPlugin $superTestPlugin */
-        $superTestPlugin = $plugins[SuperTestPlugin::class];
-        $superTestPlugin->getTestService();
     }
 }

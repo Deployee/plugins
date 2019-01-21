@@ -40,40 +40,7 @@ class PluginLoader
             $list[$pluginClass] = $this->loadPlugin($pluginClass);
         }
 
-        foreach($list as $plugin){
-            $this->configurePlugin($plugin);
-        }
-
         return $list;
-    }
-
-    /**
-     * @param PluginInterface $plugin
-     * @throws \Exception
-     */
-    private function configurePlugin(PluginInterface $plugin)
-    {
-        try {
-            $method = new \ReflectionMethod(get_class($plugin), 'configure');
-        }
-        catch(\ReflectionException $e){
-            return;
-        }
-
-        $args = [];
-        foreach ($method->getParameters() as $parameter) {
-            if($parameter->getType() === null){
-                throw new \InvalidArgumentException(sprintf(
-                    'Parameter %s of %s must have a service type hint',
-                    $parameter->getName(),
-                    get_class($plugin)
-                ));
-            }
-
-            $args[] = $this->container->get($parameter->getType()->getName());
-        }
-
-        $method->invoke($plugin, ...$args);
     }
 
     /**
