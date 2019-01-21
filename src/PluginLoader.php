@@ -30,13 +30,12 @@ class PluginLoader
     }
 
     /**
-     * @return array
+     * @return \ArrayObject
      * @throws \Exception
      */
-    public function loadPlugins(): array
+    public function loadPlugins(): \ArrayObject
     {
-        /* @var PluginInterface[] $list */
-        $list = [];
+        $list = new \ArrayObject();
         foreach($this->locator->locatePlugins() as $pluginClass){
             $list[$pluginClass] = $this->loadPlugin($pluginClass);
         }

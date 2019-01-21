@@ -21,11 +21,12 @@ class PluginLoaderTest extends TestCase
         $loader = new PluginLoader($container);
         $plugins = $loader->loadPlugins();
 
-        $this->assertContains(GreatTestPlugin::class, array_keys($plugins));
+        $pluginArrayKeys = array_keys($plugins->getArrayCopy());
+        $this->assertContains(GreatTestPlugin::class, $pluginArrayKeys);
         $this->assertInstanceOf(GreatTestPlugin::class, $plugins[GreatTestPlugin::class]);
-        $this->assertContains(AwesomeTestPlugin::class, array_keys($plugins));
+        $this->assertContains(AwesomeTestPlugin::class, $pluginArrayKeys);
         $this->assertInstanceOf(AwesomeTestPlugin::class, $plugins[AwesomeTestPlugin::class]);
-        $this->assertContains(SuperTestPlugin::class, array_keys($plugins));
+        $this->assertContains(SuperTestPlugin::class, $pluginArrayKeys);
         $this->assertInstanceOf(SuperTestPlugin::class, $plugins[SuperTestPlugin::class]);
 
         // test instanciation of services from services.yaml
