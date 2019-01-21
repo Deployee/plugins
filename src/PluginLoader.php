@@ -52,10 +52,16 @@ class PluginLoader
     {
         $reflection = new \ReflectionClass($class);
         $pluginDir = dirname($reflection->getFileName());
-        $expectedServiceFile = $pluginDir . '/config/services.yaml';
+        $expectedServiceFiles = [
+            $pluginDir . '/config/services.yaml',
+            $pluginDir . '/../config/services.yaml'
+        ];
 
-        if(is_file($expectedServiceFile)){
-            $this->loadPluginServices($expectedServiceFile);
+        foreach($expectedServiceFiles as $expectedServiceFile) {
+            if (is_file($expectedServiceFile)) {
+                $this->loadPluginServices($expectedServiceFile);
+                break;
+            }
         }
 
         /* @var PluginInterface $object */
