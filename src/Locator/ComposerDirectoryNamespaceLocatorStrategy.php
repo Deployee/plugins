@@ -33,6 +33,11 @@ class ComposerDirectoryNamespaceLocatorStrategy implements LocatorStrategyInterf
 
         foreach($this->classLoader->getPrefixesPsr4() as $namespace => $rootDirs){
             foreach($rootDirs as $rootDir){
+                if(!is_dir($rootDir)){
+                    trigger_error(sprintf('Composer directory %s does not exist', $rootDir), E_USER_WARNING);
+                    continue;
+                }
+
                 $list[] = $this->locateInDirectory($namespace, $rootDir);
             }
         }
